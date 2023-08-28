@@ -2,7 +2,8 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 // import cors from 'cors';
-import routes from './routes';
+import routes from './src/routes';
+import { startMongoose } from './db/connect';
 
 dotenv.config();
 
@@ -20,6 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
-app.listen(port, () => {
+app.listen(port || 8000, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+startMongoose();
+
+module.exports = app;
